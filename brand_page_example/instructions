@@ -1,0 +1,7 @@
+Live example: https://titleys.com.au/pages/brands
+
+Step 1 : Create page.brands.liquid template and add the following code (This one is for Turbo so adjust according to your theme)
+
+Step 2: Create custom.js file in the assets and add below code 
+
+Step 3: Add following CSS in the stylesheet (Css can be found in assests folder)
