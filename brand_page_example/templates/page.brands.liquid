@@ -1,0 +1,62 @@
+
+<section class="section">
+  <div
+    class="
+      container
+      content
+      page
+    "
+  >
+    <div class="one-whole column">
+      <h1>{{ page.title }}</h1>
+      <div class="feature_divider"></div>
+    </div>
+<nav class="brand-nav">
+  
+{% assign numbers = '0,1,2,3,4,5,6,7,8,9' %}
+   {% assign letters = 'a-b-c-d-e-f-g-h-i-j-k-l-m-n-o-p-q-r-s-t-u-v-w-x-y-z' %}
+   {% assign lettersArray = letters | split:'-' %}
+<ul class="list-inline">
+{% for l in lettersArray %}
+
+<li class="brand-nav-item"><a data-nav="{{ l | capitalize }}" data-toggle="brand" href="#">{{ l | capitalize }}</a></li>
+{% endfor %}
+<li class="brand-nav-item-all"><a data-nav="all" data-toggle="brand" href="/pages/brands">All</a></li>
+</ul>
+</nav>
+<div id="brands-body" class="brand-results">
+<div class="brand-results-row" data-term="all"></div>
+{% for l in lettersArray %}
+    {% assign blockIndex = 'gr' | append: forloop.index %}
+     {% assign displayAlphabet = 0 %}
+       {% if displayAlphabet == 0 %}
+<div class="brand-results-row" data-term="{{ l | capitalize }}">
+   {% assign displayAlphabet = 1 %}
+       {% endif %}
+  
+  {% for vendor in shop.vendors %}
+    
+     {% assign venFirstletter = vendor | handleize | slice:0 %}
+    	{% if l == venFirstletter %}
+        	{% assign vendor_handle = vendor | handle %}
+            
+            {% assign found_vendor_collection = false %}
+              {% for collection in collections %}
+                {% if collection.handle == vendor_handle %}
+                    {% assign found_vendor_collection = true %}
+                    {% break %}
+                {% endif %}
+              {% endfor %}
+<a class="brand-results-item" href="/collections/{% if found_vendor_collection %}{{vendor_handle}}{% else %}vendors?q={{ vendor }}{% endif %}" title="{{vendor}}">{{ vendor }}</a>
+{% unless forloop.last %}
+              {% cycle blockIndex:'','','','','</ul><ul>'%}
+             {% endunless %}
+    	{% endif %}
+      
+    {% endfor %}
+</div>
+{% endfor %}
+</div>
+    </div>
+
+</section>
